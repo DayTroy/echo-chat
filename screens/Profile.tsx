@@ -44,7 +44,8 @@ const Profile: React.FC<ProfileProps> = ({ navigation }) => {
     }
 
     (async () => {
-      const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+      const { status } =
+        await ImagePicker.requestMediaLibraryPermissionsAsync();
       if (status !== "granted") {
         Alert.alert(
           "Permission Denied",
