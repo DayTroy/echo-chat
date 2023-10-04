@@ -2,14 +2,15 @@ import 'dotenv/config';
 
 export default {
   "expo": {
-    "name": "echo-chat",
+    "jsEngine": "jsc",
+    "name": "EchoChat",
     "slug": "echo-chat",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/images/project-logo.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/images/project-logo.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -17,7 +18,8 @@ export default {
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "jsEngine": "jsc",
     },
     "android": {
       "package": "com.daytroy.echochat",
@@ -35,7 +37,10 @@ export default {
       projectId: process.env.PROJECT_ID,
       storageBucket: process.env.STORAGE_BUCKET,
       messagingSenderId: process.env.MESSAGING_SENDER_ID,
-      appId: process.env.APP_ID
+      appId: process.env.APP_ID,
+      "eas": {
+        "projectId": "9d306e72-6576-47fb-b545-f5e5e6a93e10"
+      }
     }
   }
 }
