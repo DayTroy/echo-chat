@@ -10,7 +10,6 @@ import {
   Alert,
 } from "react-native";
 import { Button } from "@rneui/themed";
-import { useFonts, Nunito_400Regular } from "@expo-google-fonts/nunito";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../types/rootStackParams";
 import { signInWithEmailAndPassword } from "firebase/auth";
@@ -25,16 +24,8 @@ interface LoginProps {
 }
 
 const Login: React.FC<LoginProps> = ({ navigation }: LoginProps) => {
-  const [fontsLoaded] = useFonts({
-    Nunito_400Regular,
-  });
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
-  if (!fontsLoaded) {
-    return null;
-  }
 
   const handleLogin = () => {
     if (email !== "" && password !== "") {

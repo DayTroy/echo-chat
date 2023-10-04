@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Avatar, Button } from "@rneui/themed";
+import { getAuth } from "firebase/auth";
 import * as ImagePicker from "expo-image-picker"; // Import ImagePicker from Expo
 import {
   StyleSheet,
@@ -13,7 +14,6 @@ import {
 
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../types/rootStackParams";
-
 import { signOut } from "firebase/auth";
 import { auth } from "../config/firebase";
 
@@ -31,13 +31,25 @@ const Profile: React.FC<ProfileProps> = ({ navigation }) => {
     "https://randomuser.me/api/portraits/men/36.jpg"
   );
 
+  const [user, setUser] = useState<any | null>(null);
 
   useEffect(() => {
-    // Request permission to access the camera roll
+    const auth = getAuth();
+    const currentUser = auth.currentUser;
+
+    if (currentUser) {
+      setUser(currentUser);
+    } else {
+      console.error("User not authenticated");
+    }
+
     (async () => {
       const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
       if (status !== "granted") {
-        Alert.alert("Permission Denied", "Sorry, we need camera roll permissions to make this work!");
+        Alert.alert(
+          "Permission Denied",
+          "Sorry, we need camera roll permissions to make this work!"
+        );
       }
     })();
   }, []);
@@ -55,10 +67,10 @@ const Profile: React.FC<ProfileProps> = ({ navigation }) => {
       aspect: [4, 3],
       quality: 1,
     });
-  
+
     if (!result.canceled) {
       const selectedImage = result.assets?.[0];
-      
+
       if (selectedImage && selectedImage.uri) {
         setAvatar(selectedImage.uri);
       } else {
@@ -76,6 +88,7 @@ const Profile: React.FC<ProfileProps> = ({ navigation }) => {
         source={{ uri: avatar }}
         onPress={handleAvatarPress}
       />
+      <Text style={styles.user}>{user ? user.email : "Unknown Email"}</Text>
       <Button
         title="Log out"
         buttonStyle={{
@@ -103,9 +116,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     paddingHorizontal: 20,
   },
-  title: {
+  user: {
     fontFamily: "Nunito_400Regular",
-    fontSize: 30,
+    fontSize: 20,
+    marginTop: 20,
     marginBottom: 20,
     fontWeight: "bold",
   },

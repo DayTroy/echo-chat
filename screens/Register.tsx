@@ -10,7 +10,6 @@ import {
   Alert,
 } from "react-native";
 import { Button } from "@rneui/themed";
-import { useFonts, Nunito_400Regular } from "@expo-google-fonts/nunito";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../types/rootStackParams"; // Import your types
 import { createUserWithEmailAndPassword } from "firebase/auth";
@@ -26,17 +25,9 @@ interface RegisterProps {
 }
 
 const Register: React.FC<RegisterProps> = ({ navigation }: RegisterProps) => {
-  const [fontsLoaded] = useFonts({
-    Nunito_400Regular,
-  });
-
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
-  if (!fontsLoaded) {
-    return null;
-  }
 
   const handleRegister = () => {
     if (username !== "" && email !== "" && password !== "") {
