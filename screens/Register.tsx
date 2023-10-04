@@ -6,7 +6,7 @@ import {
   View,
   TextInput,
   Image,
-  TouchableOpacity,
+  Pressable,
   Alert,
 } from "react-native";
 import { Button } from "@rneui/themed";
@@ -92,9 +92,9 @@ const Register: React.FC<RegisterProps> = ({ navigation }: RegisterProps) => {
         }}
         onPress={handleRegister}
       />
-      <TouchableOpacity onPress={() => navigation.navigate("Login")}>
+      <Pressable onPress={() => navigation.navigate("Login")}>
         <Text style={styles.signUpText}>Already have an account? Sign In</Text>
-      </TouchableOpacity>
+      </Pressable>
       <StatusBar style="auto" />
     </View>
   );

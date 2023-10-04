@@ -1,11 +1,15 @@
 import Login from "./screens/Login";
 import Register from "./screens/Register";
+import Chats from "./screens/Chats";
 import Profile from "./screens/Profile";
+import { useFonts, Nunito_400Regular } from "@expo-google-fonts/nunito";
 import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { Image } from "react-native";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useEffect, useState } from "react";
-import { useFonts, Nunito_400Regular } from "@expo-google-fonts/nunito";
+
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -16,8 +20,11 @@ export default function App() {
     Login: undefined;
     Register: undefined;
     Profile: undefined;
+    Chats: undefined;
   };
   const Stack = createNativeStackNavigator<RootStackParamList>();
+  const Tab = createBottomTabNavigator();
+
   const [initializing, setInitializing] = useState(true);
   const [user, setUser] = useState<any | null>(null);
 
@@ -47,30 +54,51 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        {user ? (
-          <Stack.Group>
-            <Stack.Screen
-              name="Profile"
-              component={Profile}
-              options={{ headerShown: false }}
-            />
-          </Stack.Group>
-        ) : (
-          <Stack.Group>
-            <Stack.Screen
-              name="Login"
-              component={Login}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="Register"
-              component={Register}
-              options={{ headerShown: false }}
-            />
-          </Stack.Group>
-        )}
-      </Stack.Navigator>
+      {user ? (
+        <Tab.Navigator>
+          <Tab.Screen
+            name="Chats"
+            component={Chats}
+            options={{
+              headerShown: false,
+              tabBarLabel: "",
+              tabBarIcon: ({ color, size }) => (
+                <Image
+                  source={require("./assets/icons/chat-icon.svg")}
+                  style={{ tintColor: color, width: size, height: size }}
+                />
+              ),
+            }}
+          />
+          <Tab.Screen
+            name="Profile"
+            component={Profile}
+            options={{
+              headerShown: false,
+              tabBarLabel: "",
+              tabBarIcon: ({ color, size }) => (
+                <Image
+                  source={require("./assets/icons/profile-icon.svg")}
+                  style={{ tintColor: color, width: size, height: size }}
+                />
+              ),
+            }}
+          />
+        </Tab.Navigator>
+      ) : (
+        <Stack.Navigator>
+          <Stack.Screen
+            name="Login"
+            component={Login}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Register"
+            component={Register}
+            options={{ headerShown: false }}
+          />
+        </Stack.Navigator>
+      )}
     </NavigationContainer>
   );
 }

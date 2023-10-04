@@ -8,7 +8,7 @@ import {
   View,
   TextInput,
   Image,
-  TouchableOpacity,
+  Pressable,
   Alert,
 } from "react-native";
 
