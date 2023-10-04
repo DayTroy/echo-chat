@@ -7,11 +7,14 @@ import {
   TextInput,
   Image,
   TouchableOpacity,
+  Alert,
 } from "react-native";
 import { Button } from "@rneui/themed";
 import { useFonts, Nunito_400Regular } from "@expo-google-fonts/nunito";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../types/rootStackParams"; // Import your types
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../config/firebase";
 
 type RegisterScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -28,14 +31,22 @@ const Register: React.FC<RegisterProps> = ({ navigation }: RegisterProps) => {
   });
 
   const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   if (!fontsLoaded) {
     return null;
   }
 
-  const handleSignIn = () => {
-    console.log("Signing in with:", { username, password });
+  const handleRegister = () => {
+    if (username !== "" && email !== "" && password !== "") {
+      createUserWithEmailAndPassword(auth, email, password)
+        .then(() => {
+          console.log("Signup success");
+          navigation.replace("Profile");
+        })
+        .catch((error) => Alert.alert("Registration error", error.message));
+    }
   };
 
   return (
@@ -54,8 +65,7 @@ const Register: React.FC<RegisterProps> = ({ navigation }: RegisterProps) => {
         <TextInput
           style={styles.input}
           placeholder="Email"
-          secureTextEntry
-          onChangeText={(text) => setPassword(text)}
+          onChangeText={(text) => setEmail(text)}
         />
         <TextInput
           style={styles.input}
@@ -89,7 +99,7 @@ const Register: React.FC<RegisterProps> = ({ navigation }: RegisterProps) => {
           width: 200,
           marginVertical: 10,
         }}
-        onPress={() => console.log("aye")}
+        onPress={handleRegister}
       />
       <TouchableOpacity onPress={() => navigation.navigate("Login")}>
         <Text style={styles.signUpText}>Already have an account? Sign In</Text>

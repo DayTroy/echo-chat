@@ -7,32 +7,44 @@ import {
   TextInput,
   Image,
   TouchableOpacity,
+  Alert,
 } from "react-native";
 import { Button } from "@rneui/themed";
 import { useFonts, Nunito_400Regular } from "@expo-google-fonts/nunito";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { RootStackParamList } from '../types/rootStackParams'; // Import your types
-
-type LoginScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Login'>;
+import { RootStackParamList } from "../types/rootStackParams";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../config/firebase";
+type LoginScreenNavigationProp = StackNavigationProp<
+  RootStackParamList,
+  "Login"
+>;
 
 interface LoginProps {
-    navigation: LoginScreenNavigationProp;
-  }
+  navigation: LoginScreenNavigationProp;
+}
 
 const Login: React.FC<LoginProps> = ({ navigation }: LoginProps) => {
   const [fontsLoaded] = useFonts({
     Nunito_400Regular,
   });
 
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   if (!fontsLoaded) {
     return null;
   }
 
-  const handleSignIn = () => {
-    console.log("Signing in with:", { username, password });
+  const handleLogin = () => {
+    if (email !== "" && password !== "") {
+      signInWithEmailAndPassword(auth, email, password)
+        .then(() => {
+          console.log("Signin success");
+          navigation.replace("Profile");
+        })
+        .catch((error) => Alert.alert("Login error", error.message));
+    }
   };
 
   return (
@@ -45,8 +57,8 @@ const Login: React.FC<LoginProps> = ({ navigation }: LoginProps) => {
       <View style={styles.inputContainer}>
         <TextInput
           style={styles.input}
-          placeholder="Username"
-          onChangeText={(text) => setUsername(text)}
+          placeholder="Email"
+          onChangeText={(text) => setEmail(text)}
         />
         <TextInput
           style={styles.input}
@@ -74,7 +86,7 @@ const Login: React.FC<LoginProps> = ({ navigation }: LoginProps) => {
           width: 200,
           marginVertical: 10,
         }}
-        onPress={() => console.log("aye")}
+        onPress={handleLogin}
       />
       <TouchableOpacity onPress={() => navigation.navigate("Register")}>
         <Text style={styles.signUpText}>Don't have an account? Sign Up</Text>
