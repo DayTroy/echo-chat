@@ -1,7 +1,7 @@
-import Login from "./screens/Login";
-import Register from "./screens/Register";
-import Chats from "./screens/Chats";
-import Profile from "./screens/Profile";
+import Login from "./static/Login";
+import Register from "./static/Register";
+import Chats from "./static/Chats";
+import Profile from "./static/Profile";
 import { useFonts, Nunito_400Regular } from "@expo-google-fonts/nunito";
 import { NavigationContainer } from "@react-navigation/native";
 import { Image } from "react-native";

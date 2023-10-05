@@ -1,7 +1,7 @@
 import React from "react";
-import Card from "../components/Card";
+import Card from "../shared/Card";
 import { FAB } from "react-native-paper";
-import SearchBar from "../components/SearchBar";
+import SearchBar from "../shared/SearchBar";
 import {
   StyleSheet,
   Text,
