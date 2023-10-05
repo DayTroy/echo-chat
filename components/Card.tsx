@@ -7,7 +7,7 @@ const Card = () => {
     <View style={styles.container}>
       <View style={styles.card}>
         <View>
-          <Text style={styles.title}>Chats</Text>
+          <Text style={styles.title}>Chat</Text>
           <Text style={styles.subtitle}>Members</Text>
         </View>
         <Button
@@ -18,7 +18,7 @@ const Card = () => {
             marginHorizontal: 50,
             marginVertical: 10,
           }}
-          titleStyle={{ color: "white", marginHorizontal: 20 }}
+          titleStyle={{ color: "white", marginHorizontal: 20, fontFamily: "Nunito_400Regular"}}
         />
       </View>
     </View>
@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     padding: 10,
     borderWidth: 1,
     borderRadius: 7,
-    borderColor: "white",
+    borderColor: "black",
     width: 300,
     shadowColor: "#000",
     shadowOffset: {
@@ -46,7 +46,6 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
-    elevation: 5, // For Android
   },
   title: {
     fontFamily: "Nunito_400Regular",

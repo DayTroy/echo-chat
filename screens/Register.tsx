@@ -44,7 +44,7 @@ const Register: React.FC<RegisterProps> = ({ navigation }: RegisterProps) => {
     <View style={styles.container}>
       <Text style={styles.title}>Registration</Text>
       <Image
-        source={require("../assets/images/login-background.svg")}
+        source={require("../assets/images/login-background.png")}
         style={styles.image}
       />
       <View style={styles.inputContainer}>

@@ -42,7 +42,7 @@ const Login: React.FC<LoginProps> = ({ navigation }: LoginProps) => {
     <View style={styles.container}>
       <Text style={styles.title}>Authorization</Text>
       <Image
-        source={require("../assets/images/login-background.svg")}
+        source={require("../assets/images/login-background.png")}
         style={styles.image}
       />
       <View style={styles.inputContainer}>

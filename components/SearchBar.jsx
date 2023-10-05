@@ -12,6 +12,7 @@ const SearchBar = () => {
       onChangeText={onChangeSearch}
       value={searchQuery}
       style={styles.searchbar}
+      inputStyle={{fontFamily: "Nunito_400Regular"}}
     />
   );
 };
@@ -20,6 +21,8 @@ const styles = StyleSheet.create({
   searchbar: {
     borderRadius: 8,
     width: 300,
+    backgroundColor: "#C7CCDB",
+    
   },
 });
 

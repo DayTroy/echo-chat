@@ -20,6 +20,7 @@ export default {
     "ios": {
       "supportsTablet": true,
       "jsEngine": "jsc",
+      "bundleIdentifier": "your.bundle.identifier",
     },
     "android": {
       "package": "com.daytroy.echochat",
@@ -31,6 +32,7 @@ export default {
     "web": {
       "favicon": "./assets/favicon.png"
     },
+    
     extra: {
       apiKey: process.env.API_KEY,
       authDomain: process.env.AUTH_DOMAIN,
@@ -39,8 +41,8 @@ export default {
       messagingSenderId: process.env.MESSAGING_SENDER_ID,
       appId: process.env.APP_ID,
       "eas": {
-        "projectId": "9d306e72-6576-47fb-b545-f5e5e6a93e10"
-      }
+        "projectId": "9d306e72-6576-47fb-b545-f5e5e6a93e10",
+      },
     }
   }
 }

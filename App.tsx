@@ -64,7 +64,7 @@ export default function App() {
               tabBarLabel: "",
               tabBarIcon: ({ color, size }) => (
                 <Image
-                  source={require("./assets/icons/chat-icon.svg")}
+                  source={require("./assets/icons/chat-icon.png")}
                   style={{ tintColor: color, width: size, height: size }}
                 />
               ),
@@ -78,7 +78,7 @@ export default function App() {
               tabBarLabel: "",
               tabBarIcon: ({ color, size }) => (
                 <Image
-                  source={require("./assets/icons/profile-icon.svg")}
+                  source={require("./assets/icons/profile-icon.png")}
                   style={{ tintColor: color, width: size, height: size }}
                 />
               ),
