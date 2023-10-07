@@ -1,0 +1,6 @@
+export enum ActionTypes {
+  CREATE_CHAT = "CREATE_CHAT",
+  UPDATE_CHAT = "UPDATE_CHAT",
+  DELETE_CHAT = "DELETE_CHAT",
+  GET_CHATS = "GET_CHATS",
+}

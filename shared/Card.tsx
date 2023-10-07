@@ -2,19 +2,19 @@ import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { Button } from "@rneui/themed";
 
-const Card = () => {
+const Card = ({chat}) => {
   return (
     <View style={styles.container}>
       <View style={styles.card}>
         <View>
-          <Text style={styles.title}>Chat</Text>
-          <Text style={styles.subtitle}>Members</Text>
+          <Text style={styles.title}>{chat.name}</Text>
         </View>
         <Button
           title="Join"
           buttonStyle={{ backgroundColor: "rgba(39, 39, 39, 1)" }}
           containerStyle={{
-            width: 100,
+            width: 200,
+            height: 40,
             marginHorizontal: 50,
             marginVertical: 10,
           }}
@@ -28,7 +28,6 @@ const Card = () => {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "#fff",
-    paddingHorizontal: 20,
     marginTop: 20,
   },
   card: {
@@ -49,7 +48,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontFamily: "Nunito_400Regular",
-    fontSize: 16,
+    fontSize: 24,
   },
   subtitle: {
     fontFamily: "Nunito_400Regular",
