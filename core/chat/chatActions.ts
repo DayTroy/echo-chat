@@ -1,16 +1,24 @@
 import { ActionTypes } from "./chatActionTypes";
-import { Chat } from "../../shared/interfaces/Chat";
 import axios from "axios";
-
-export const setChats = (chats: Chat[]) => ({
-  type: ActionTypes.SET_CHATS,
-  payload: chats,
-});
+import { Dispatch } from "redux";
+export const setChats = () => {
+  return async (dispatch: Dispatch) => {
+    try {
+      const response = await axios.get("http://localhost:3000/get-chats/");
+      dispatch({
+        type: ActionTypes.SET_CHATS,
+        payload: response.data,
+      });
+    } catch (error) {
+      console.error("Error creating chat:", error);
+    }
+  };
+};
 
 export const createChat = (chatData: any) => {
-  return async (dispatch: any) => {
+  return async (dispatch: Dispatch) => {
     try {
-      const response = await axios.post('http://localhost:3000/create-chat/', {
+      const response = await axios.post("http://localhost:3000/create-chat/", {
         uid: chatData.uid,
         chatTitle: chatData.chatTitle,
       });
@@ -23,15 +31,14 @@ export const createChat = (chatData: any) => {
           creatorID: chatData.uid,
         },
       });
-
     } catch (error) {
-      console.error('Error creating chat:', error);
+      console.error("Error creating chat:", error);
     }
   };
 };
 
 export const editChat = (chatData: any) => {
-  return async (dispatch: any) => {
+  return async (dispatch: Dispatch) => {
     try {
       await axios.put(`http://localhost:3000/update-chat/${chatData.chatId}`, {
         updatedChatTitle: chatData.updatedChatTitle,
@@ -43,17 +50,27 @@ export const editChat = (chatData: any) => {
           title: chatData.updatedChatTitle,
         },
       });
-
     } catch (error) {
-        console.error('Error editing chat:', error);
+      console.error("Error editing chat:", error);
     }
   };
 };
 
-export const deleteChat = (chatId: string) => ({
-  type: ActionTypes.DELETE_CHAT,
-  payload: chatId,
-});
+export const deleteChat = (chatData: any) => {
+  return async (dispatch: Dispatch) => {
+    try {
+      await axios.delete(
+        `http://localhost:3000/delete-chat/${chatData.chatId}`
+      );
+      dispatch({
+        type: ActionTypes.DELETE_CHAT,
+        payload: chatData.chatId,
+      });
+    } catch (error) {
+      console.error("Error deleting chat:", error);
+    }
+  };
+};
 
 export const connectChat = (chatId: string, userId: string) => ({
   type: ActionTypes.CONNECT_CHAT,

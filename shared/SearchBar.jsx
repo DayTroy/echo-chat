@@ -1,29 +1,36 @@
 import { useState } from "react";
 import { Searchbar } from "react-native-paper";
-import { StyleSheet } from "react-native";
+import { StyleSheet, View } from "react-native";
 const SearchBar = () => {
   const [searchQuery, setSearchQuery] = useState("");
 
   const onChangeSearch = (query) => setSearchQuery(query);
 
   return (
+    <View style={styles.container}>
     <Searchbar
       placeholder="Search"
       onChangeText={onChangeSearch}
       value={searchQuery}
       style={styles.searchbar}
-      inputStyle={{fontFamily: "Nunito_400Regular", color: "white"}}
-      placeholderTextColor={"white"}
-      iconColor="white"
-    />
+      inputStyle={{fontFamily: "Nunito_400Regular", color: "black"}}
+      placeholderTextColor={"black"}
+      iconColor="black"
+    /></View>
   );
 };
 
 const styles = StyleSheet.create({
-  searchbar: {
+  container: {
+    elevation: 10,  
+    backgroundColor: "white", 
     borderRadius: 8,
+    shadowColor: '#52006A',
+  },
+  searchbar: {
     width: 300,
-    backgroundColor: "rgba(39, 39, 39, 1)",
+    backgroundColor: "white",
+    boxShadow: "rgba(0, 0, 0, 0.3) 0px 1px 3px",
   },
 });
 

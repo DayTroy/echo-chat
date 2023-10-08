@@ -1,16 +1,19 @@
 import React, { useEffect, useState } from "react";
-import Card from "../shared/Card";
-import { FAB, Portal, Button, Dialog, TextInput } from "react-native-paper";
+import ChatCard from "../shared/ChatCard";
+import { FAB, Portal } from "react-native-paper";
 import SearchBar from "../shared/SearchBar";
 import { StyleSheet, Text, View, ScrollView } from "react-native";
-import axios from "axios";
 import { getAuth } from "firebase/auth";
 import { Chat } from "../shared/interfaces/Chat";
-
 import { useDispatch, useSelector } from "react-redux";
-import { createChat, editChat, setChats } from "../core/chat/chatActions";
+import {
+  setChats,
+  createChat,
+  editChat,
+  deleteChat,
+} from "../core/chat/chatActions";
 import { RootState } from "../core/rootState";
-
+import CustomDialog from "../shared/CustomDialog";
 const Chats = () => {
   const dispatch = useDispatch();
   const chats = useSelector((state: RootState) => state.chat.chats);
@@ -20,43 +23,45 @@ const Chats = () => {
 
   const [chatTitle, setChatTitle] = useState("");
   const [selectedChat, setSelectedChat] = useState<Chat | null>(null);
-  const [visible, setVisible] = useState(false);
+  const [createDialogVisible, setCreateDialogVisible] = useState(false);
   const [editDialogVisible, setEditDialogVisible] = useState(false);
+  const [deleteDialogVisible, setDeleteDialogVisible] = useState(false);
 
   useEffect(() => {
-    axios
-      .get("http://localhost:3000/get-chats/")
-      .then((response) => {
-        dispatch(setChats(response.data));
-      })
-      .catch((error) => console.log(error));
-  }, []);
+    dispatch(setChats() as any);
+  }, [dispatch]);
 
   const handleCreateChat = async () => {
-    dispatch(createChat({ uid: user?.uid, chatTitle }));  
-    hideDialog();
+    dispatch(createChat({ uid: user?.uid, chatTitle }) as any);
+    hideCreateDialog();
   };
-  
 
   const handleEditChat = () => {
-    dispatch(editChat({ chatId: selectedChat?.id, updatedChatTitle: chatTitle }));
+    dispatch(
+      editChat({ chatId: selectedChat?.id, updatedChatTitle: chatTitle }) as any
+    );
     hideEditDialog();
+  };
+
+  const handleDeleteChat = () => {
+    dispatch(
+      deleteChat({
+        chatId: selectedChat?.id,
+        updatedChatTitle: chatTitle,
+      }) as any
+    );
+    hideDeleteDialog();
   };
 
   const onPressFAB = () => {
     setChatTitle("");
-    showDialog();
+    showCreateDialog();
   };
 
-  const hideDialog = () => {
-    setVisible(false);
-    setChatTitle("");
-  };
+  const showCreateDialog = () => setCreateDialogVisible(true);
 
-  const showDialog = () => setVisible(true);
-
-  const hideEditDialog = () => {
-    setEditDialogVisible(false);
+  const hideCreateDialog = () => {
+    setCreateDialogVisible(false);
     setChatTitle("");
   };
 
@@ -66,6 +71,24 @@ const Chats = () => {
       setSelectedChat(chat);
       setEditDialogVisible(true);
     };
+  };
+
+  const hideEditDialog = () => {
+    setEditDialogVisible(false);
+    setChatTitle("");
+  };
+
+  const showDeleteDialog = (chat: Chat) => {
+    return () => {
+      setChatTitle(chat.title);
+      setSelectedChat(chat);
+      setDeleteDialogVisible(true);
+    };
+  };
+
+  const hideDeleteDialog = () => {
+    setDeleteDialogVisible(false);
+    setChatTitle("");
   };
 
   return (
@@ -78,11 +101,12 @@ const Chats = () => {
         <SearchBar />
         <View style={styles.cards}>
           {chats.map((chat: Chat, index: number) => (
-            <Card
+            <ChatCard
               key={index}
               chat={chat}
               isUserChat={user?.uid === chat.creatorID}
               showEditDialog={showEditDialog(chat)}
+              showDeleteDialog={showDeleteDialog(chat)}
             />
           ))}
         </View>
@@ -95,62 +119,35 @@ const Chats = () => {
         animated={true}
       />
       <Portal>
-        {/* Create Chat Dialog */}
-        <Dialog visible={visible} onDismiss={hideDialog} style={styles.dialog}>
-          <Dialog.Content>
-            <Text style={styles.dialog__content}>
-              Are you sure you want to create a chat?
-            </Text>
-            <TextInput
-              contentStyle={styles.dialog__input}
-              style={styles.dialog__input}
-              label="Chat title"
-              value={chatTitle}
-              onChangeText={(newChatTitle) => setChatTitle(newChatTitle)}
-              maxLength={30}
-            />
-          </Dialog.Content>
-          <Dialog.Actions>
-            <Button onPress={hideDialog} labelStyle={styles.dialog__actions}>
-              Cancel
-            </Button>
-            <Button onPress={handleCreateChat} labelStyle={styles.dialog__actions}>
-              Ok
-            </Button>
-          </Dialog.Actions>
-        </Dialog>
+        <CustomDialog
+          visible={createDialogVisible}
+          dialogContent="Are you sure you want to create a chat?"
+          chatTitle={chatTitle}
+          setChatTitle={(newChatTitle: string) => setChatTitle(newChatTitle)}
+          hideDialog={hideCreateDialog}
+          handleDialogAction={handleCreateChat}
+          isDeleteType={false}
+        />
 
-        {/* Edit Chat Dialog */}
-        <Dialog
+        <CustomDialog
           visible={editDialogVisible}
-          onDismiss={hideEditDialog}
-          style={styles.dialog}
-        >
-          <Dialog.Content>
-            <Text style={styles.dialog__content}>
-              Edit the chat title below:
-            </Text>
-            <TextInput
-              contentStyle={styles.dialog__input}
-              style={styles.dialog__input}
-              label="Chat title"
-              value={chatTitle}
-              onChangeText={(newChatTitle) => setChatTitle(newChatTitle)}
-              maxLength={30}
-            />
-          </Dialog.Content>
-          <Dialog.Actions>
-            <Button
-              onPress={hideEditDialog}
-              labelStyle={styles.dialog__actions}
-            >
-              Cancel
-            </Button>
-            <Button onPress={handleEditChat} labelStyle={styles.dialog__actions}>
-              Save
-            </Button>
-          </Dialog.Actions>
-        </Dialog>
+          dialogContent="Are you sure you want to edit the chat?"
+          chatTitle={chatTitle}
+          setChatTitle={(newChatTitle: string) => setChatTitle(newChatTitle)}
+          hideDialog={hideEditDialog}
+          handleDialogAction={handleEditChat}
+          isDeleteType={false}
+        />
+
+        <CustomDialog
+          visible={deleteDialogVisible}
+          dialogContent="Are you sure you want to delete the chat?"
+          chatTitle={chatTitle}
+          setChatTitle={(newChatTitle: string) => setChatTitle(newChatTitle)}
+          hideDialog={hideEditDialog}
+          handleDialogAction={handleDeleteChat}
+          isDeleteType={true}
+        />
       </Portal>
     </View>
   );
