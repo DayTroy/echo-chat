@@ -9,13 +9,10 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useEffect, useState } from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Provider } from "react-redux";
-import { createStore, applyMiddleware } from "redux";
-import thunk from "redux-thunk";
-import rootReducer from "./core/reducers";
-import CreateChat from "./static/CreateChat";
 import { Provider as PaperProvider } from 'react-native-paper';
-const store = createStore(rootReducer, applyMiddleware(thunk));
+
+import store from "./core/store";
+import { Provider } from "react-redux";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -60,7 +57,7 @@ export default function App() {
 
   return (
     <PaperProvider>
-    <Provider store={store}>
+      <Provider store={store}>
       <NavigationContainer>
         {user ? (
           <Tab.Navigator>
@@ -108,7 +105,7 @@ export default function App() {
           </Stack.Navigator>
         )}
       </NavigationContainer>
-    </Provider>
+      </Provider>
     </PaperProvider>
   );
 }

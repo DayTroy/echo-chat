@@ -12,7 +12,9 @@ const SearchBar = () => {
       onChangeText={onChangeSearch}
       value={searchQuery}
       style={styles.searchbar}
-      inputStyle={{fontFamily: "Nunito_400Regular"}}
+      inputStyle={{fontFamily: "Nunito_400Regular", color: "white"}}
+      placeholderTextColor={"white"}
+      iconColor="white"
     />
   );
 };
