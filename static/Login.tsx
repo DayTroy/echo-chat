@@ -32,7 +32,7 @@ const Login: React.FC<LoginProps> = ({ navigation }: LoginProps) => {
       signInWithEmailAndPassword(auth, email, password)
         .then(() => {
           console.log("Signin success");
-          navigation.replace("Profile");
+          navigation.replace("Login", { screen: "Tabs" });
         })
         .catch((error) => Alert.alert("Login error", error.message));
     }

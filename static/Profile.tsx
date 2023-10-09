@@ -57,7 +57,7 @@ const Profile: React.FC<ProfileProps> = ({ navigation }) => {
 
   const handleLogout = () => {
     signOut(auth)
-      .then(() => navigation.replace("Login"))
+      .then(() => navigation.replace("Tabs", { screen: "Login" }))
       .catch((error) => Alert.alert("Login error", error.message));
   };
 

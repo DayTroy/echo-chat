@@ -20,9 +20,8 @@ const SearchBar = ({ setSearchQuery }) => {
 
 const styles = StyleSheet.create({
   container: {
-    elevation: 10,
+    elevation: 8,
     backgroundColor: "white",
-    borderRadius: 8,
     shadowColor: "#52006A",
   },
   searchbar: {

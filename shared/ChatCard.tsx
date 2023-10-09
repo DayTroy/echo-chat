@@ -2,6 +2,7 @@ import React from "react";
 import { StyleSheet, Text, View, Dimensions } from "react-native";
 import { Chat } from "./interfaces/Chat";
 import { Card, IconButton, Button } from "react-native-paper";
+import { useNavigation } from "@react-navigation/native";
 interface CardProps {
   chat: Chat;
   isUserChat: boolean;
@@ -15,6 +16,7 @@ const ChatCard: React.FC<CardProps> = ({
   showEditDialog,
   showDeleteDialog,
 }) => {
+  const navigation = useNavigation();
   return (
     <View style={styles.container}>
       <Card style={styles.card}>
@@ -26,7 +28,7 @@ const ChatCard: React.FC<CardProps> = ({
             <Button
               icon={"login"}
               style={styles.button}
-              mode="contained"
+              onPress={() => navigation.navigate("Chat")}
               textColor="white"
               buttonColor="#44bc82"
               labelStyle={{ fontFamily: "Nunito_400Regular" }}
@@ -41,6 +43,7 @@ const ChatCard: React.FC<CardProps> = ({
             <Button
               icon={"login"}
               style={styles.button}
+              onPress={() => navigation.navigate("Chat")}
               mode="contained"
               textColor="white"
               buttonColor="#44bc82"
@@ -96,6 +99,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     fontFamily: "Nunito_400Regular",
     marginLeft: 0,
+    borderWidth: 0,
   },
 });
 
