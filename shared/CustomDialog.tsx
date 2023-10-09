@@ -33,6 +33,11 @@ const CustomDialog: React.FC<CustomDialogProps> = ({
             value={chatTitle}
             onChangeText={setChatTitle}
             maxLength={30}
+            placeholderTextColor={"black"}
+            selectionColor={"#44bc82"}
+            underlineColor="white"
+            activeOutlineColor="#44bc82"
+            activeUnderlineColor="#44bc82"
           />
         )}
       </Dialog.Content>
@@ -53,19 +58,22 @@ const CustomDialog: React.FC<CustomDialogProps> = ({
 
 const styles = StyleSheet.create({
   dialog: {
-    backgroundColor: "rgba(39, 39, 39, 1)",
+    backgroundColor: "white",
   },
   dialog__content: {
-    color: "white",
+    color: "black",
     fontFamily: "Nunito_400Regular",
     fontSize: 16,
     marginBottom: 10,
   },
   dialog__input: {
+    backgroundColor: "#e0e0e0",
+    color: "black",
     fontFamily: "Nunito_400Regular",
+    borderRadius: 8,
   },
   dialog__actions: {
-    color: "white",
+    color: "black",
     fontFamily: "Nunito_400Regular",
   },
 });

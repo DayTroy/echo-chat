@@ -1,7 +1,7 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, Dimensions } from "react-native";
 import { Chat } from "./interfaces/Chat";
-import { Card, Button } from "react-native-paper";
+import { Card, IconButton, Button } from "react-native-paper";
 interface CardProps {
   chat: Chat;
   isUserChat: boolean;
@@ -24,45 +24,49 @@ const ChatCard: React.FC<CardProps> = ({
         {!isUserChat ? (
           <Card.Actions>
             <Button
+              icon={"login"}
               style={styles.button}
               mode="contained"
               textColor="white"
               buttonColor="#44bc82"
-              labelStyle={{fontFamily: "Nunito_400Regular"}}
+              labelStyle={{ fontFamily: "Nunito_400Regular" }}
             >
               {"Join"}
             </Button>
           </Card.Actions>
         ) : (
-          <Card.Actions style={{marginTop: 10}}>
+          <Card.Actions
+            style={{ marginTop: 30, alignSelf: "flex-start", padding: 0 }}
+          >
             <Button
+              icon={"login"}
               style={styles.button}
               mode="contained"
               textColor="white"
               buttonColor="#44bc82"
-              labelStyle={{fontFamily: "Nunito_400Regular"}}
+              labelStyle={{ fontFamily: "Nunito_400Regular" }}
             >
               {"Join"}
             </Button>
             <Button
-              style={styles.button}
+              icon={"update"}
+              style={{ ...styles.button, marginLeft: 10 }}
               onPress={showEditDialog}
               mode="contained"
               textColor="white"
               buttonColor="#0279ff"
-              labelStyle={{fontFamily: "Nunito_400Regular"}}
+              labelStyle={{ fontFamily: "Nunito_400Regular" }}
             >
               {"Edit"}
             </Button>
-            <Button
-              style={styles.button}
+            <IconButton
+              icon="delete"
+              size={20}
+              iconColor="white"
+              style={{ ...styles.button, marginLeft: 20 }}
+              containerColor="#ec5053"
               onPress={showDeleteDialog}
-              textColor="white"
-              buttonColor="#ec5053"
-              labelStyle={{fontFamily: "Nunito_400Regular"}}
-            >
-              Delete
-            </Button>
+            />
           </Card.Actions>
         )}
       </Card>
@@ -91,6 +95,7 @@ const styles = StyleSheet.create({
   button: {
     borderRadius: 8,
     fontFamily: "Nunito_400Regular",
+    marginLeft: 0,
   },
 });
 

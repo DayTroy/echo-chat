@@ -22,6 +22,7 @@ const Chats = () => {
   const user = auth.currentUser;
 
   const [chatTitle, setChatTitle] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
   const [selectedChat, setSelectedChat] = useState<Chat | null>(null);
   const [createDialogVisible, setCreateDialogVisible] = useState(false);
   const [editDialogVisible, setEditDialogVisible] = useState(false);
@@ -91,6 +92,9 @@ const Chats = () => {
     setChatTitle("");
   };
 
+  const filteredChats = chats.filter((chat: Chat) =>
+    chat.title.toLowerCase().includes(searchQuery.toLowerCase())
+  );
   return (
     <View style={styles.container}>
       <ScrollView
@@ -98,9 +102,9 @@ const Chats = () => {
         showsVerticalScrollIndicator={false}
       >
         <Text style={styles.title}>Chats</Text>
-        <SearchBar />
+        <SearchBar setSearchQuery={setSearchQuery} />
         <View style={styles.cards}>
-          {chats.map((chat: Chat, index: number) => (
+          {filteredChats.map((chat: Chat, index: number) => (
             <ChatCard
               key={index}
               chat={chat}
@@ -159,9 +163,9 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "flex-start",
-    paddingRight: 20,
     overflow: "hidden",
     paddingTop: 20,
+    paddingHorizontal: 20,
   },
   title: {
     fontFamily: "Nunito_400Regular",
@@ -182,22 +186,6 @@ const styles = StyleSheet.create({
     right: 0,
     bottom: 20,
     backgroundColor: "white",
-  },
-  dialog: {
-    backgroundColor: "rgba(39, 39, 39, 1)",
-  },
-  dialog__content: {
-    color: "white",
-    fontFamily: "Nunito_400Regular",
-    fontSize: 16,
-    marginBottom: 10,
-  },
-  dialog__input: {
-    fontFamily: "Nunito_400Regular",
-  },
-  dialog__actions: {
-    color: "white",
-    fontFamily: "Nunito_400Regular",
   },
 });
 
