@@ -7,7 +7,7 @@ Users should be able to create chats, search for chats, connect to exist and del
 
 ## Tech Stack
 
-**Client:** React Native, Redux, TypeScript, React Native Elements, React Native Paper
+**Client:** Expo, React Native, Redux, TypeScript, React Native Elements, React Native Paper
 
 **Server:** Node, Express.
 
