@@ -5,11 +5,11 @@ Simple chat that was developed as a solution to a test task for the position of 
 ## Description:
 Users should be able to create chats, search for chats, connect to exist and delete if the user created the chat. When a user connects to chat, it should be able to write some text, see hardcoded messages from other users.
 
-## - Tech stack:
-- React Native;
-- Redux;
-- TypeScript;
-- Express;
+## Tech Stack
+
+**Client:** React Native, Redux, TypeScript, React Native Elements, React Native Paper
+
+**Server:** Node, Express.
 
 ## Installation
 Clone the project
