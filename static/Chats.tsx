@@ -14,6 +14,9 @@ import {
 } from "../core/chat/chatActions";
 import { RootState } from "../core/rootState";
 import CustomDialog from "../shared/CustomDialog";
+import socket from "../utils";
+
+
 const Chats = () => {
   const dispatch = useDispatch();
   const chats = useSelector((state: RootState) => state.chat.chats);
@@ -33,6 +36,7 @@ const Chats = () => {
   }, [dispatch]);
 
   const handleCreateChat = async () => {
+    socket.emit("newChat", chatTitle);
     dispatch(createChat({ uid: user?.uid, chatTitle }) as any);
     hideCreateDialog();
   };

@@ -1,5 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth"; // Import the auth function
+import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBt2wuCmPQv0kEnui6Nen6CyjuoCLgpPc4",
@@ -7,10 +8,11 @@ const firebaseConfig = {
   projectId: "echo-chat-847a0",
   storageBucket: "echo-chat-847a0.appspot.com",
   messagingSenderId: "1010173829592",
-  appId: "1:1010173829592:web:beb6007b66df92fe8092ad"
+  appId: "1:1010173829592:web:beb6007b66df92fe8092ad",
+  databaseURL: "echo-chat-847a0.firebaseio.com",
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-
 export const auth = getAuth(app);
+export const database = getFirestore();

@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, Dimensions } from "react-native";
 import { Chat } from "./interfaces/Chat";
 import { Card, IconButton, Button } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
+import socket from "../utils";
 interface CardProps {
   chat: Chat;
   isUserChat: boolean;
@@ -17,6 +18,10 @@ const ChatCard: React.FC<CardProps> = ({
   showDeleteDialog,
 }) => {
   const navigation = useNavigation();
+  const handleJoinChat = () => {
+    socket.emit('joinChat', chat.id); // Assuming chat.id is the identifier for the chat
+    navigation.navigate('Chat', { chatId: chat.id });
+  };
   return (
     <View style={styles.container}>
       <Card style={styles.card}>
@@ -28,7 +33,7 @@ const ChatCard: React.FC<CardProps> = ({
             <Button
               icon={"login"}
               style={styles.button}
-              onPress={() => navigation.navigate("Chat")}
+              onPress={handleJoinChat}
               textColor="white"
               buttonColor="#44bc82"
               labelStyle={{ fontFamily: "Nunito_400Regular" }}
@@ -43,7 +48,7 @@ const ChatCard: React.FC<CardProps> = ({
             <Button
               icon={"login"}
               style={styles.button}
-              onPress={() => navigation.navigate("Chat")}
+              onPress={handleJoinChat}
               mode="contained"
               textColor="white"
               buttonColor="#44bc82"

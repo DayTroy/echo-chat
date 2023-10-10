@@ -4,7 +4,7 @@ import { Dispatch } from "redux";
 export const setChats = () => {
   return async (dispatch: Dispatch) => {
     try {
-      const response = await axios.get("http://localhost:3000/get-chats/");
+      const response = await axios.get("http://localhost:4000/get-chats/");
       dispatch({
         type: ActionTypes.SET_CHATS,
         payload: response.data,
@@ -18,7 +18,7 @@ export const setChats = () => {
 export const createChat = (chatData: any) => {
   return async (dispatch: Dispatch) => {
     try {
-      const response = await axios.post("http://localhost:3000/create-chat/", {
+      const response = await axios.post("http://localhost:4000/create-chat/", {
         uid: chatData.uid,
         chatTitle: chatData.chatTitle,
       });
@@ -40,7 +40,7 @@ export const createChat = (chatData: any) => {
 export const editChat = (chatData: any) => {
   return async (dispatch: Dispatch) => {
     try {
-      await axios.put(`http://localhost:3000/update-chat/${chatData.chatId}`, {
+      await axios.put(`http://localhost:4000/update-chat/${chatData.chatId}`, {
         updatedChatTitle: chatData.updatedChatTitle,
       });
       dispatch({
@@ -60,7 +60,7 @@ export const deleteChat = (chatData: any) => {
   return async (dispatch: Dispatch) => {
     try {
       await axios.delete(
-        `http://localhost:3000/delete-chat/${chatData.chatId}`
+        `http://localhost:4000/delete-chat/${chatData.chatId}`
       );
       dispatch({
         type: ActionTypes.DELETE_CHAT,
