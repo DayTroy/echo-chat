@@ -12,17 +12,27 @@ Users should be able to create chats, search for chats, connect to exist and del
 - Express;
 
 ## Installation
-Install the project with npm
+Clone the project
 ```bash
   git clone https://github.com/DayTroy/echo-chat
+```
+
+Go to the project directory
+```bash
+  cd echo-chat
+```
+
+Install dependencies
+```bash
   npm install
 ```
-Run project locally type
+
+Run project locally 
 ```bash
   npx expo start
 ```
 
-Run local backend server type
+Run locally backend server
 ```bash
   node server.js
 ```
