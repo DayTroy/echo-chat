@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import ChatCard from "../shared/ChatCard";
+import ChatCard from "../shared/components/ChatCard";
 import { FAB, Portal } from "react-native-paper";
-import SearchBar from "../shared/SearchBar";
+import SearchBar from "../shared/components/SearchBar";
 import { StyleSheet, Text, View, ScrollView } from "react-native";
 import { getAuth } from "firebase/auth";
 import { Chat } from "../shared/interfaces/Chat";
@@ -13,7 +13,7 @@ import {
   deleteChat,
 } from "../core/chat/chatActions";
 import { RootState } from "../core/rootState";
-import CustomDialog from "../shared/CustomDialog";
+import CustomDialog from "../shared/components/CustomDialog";
 import socket from "../utils";
 
 

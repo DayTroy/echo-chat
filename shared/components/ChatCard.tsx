@@ -1,9 +1,9 @@
 import React from "react";
 import { StyleSheet, Text, View, Dimensions } from "react-native";
-import { Chat } from "./interfaces/Chat";
+import { Chat } from "../interfaces/Chat";
 import { Card, IconButton, Button } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
-import socket from "../utils";
+import socket from "../../utils";
 interface CardProps {
   chat: Chat;
   isUserChat: boolean;

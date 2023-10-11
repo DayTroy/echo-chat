@@ -8,7 +8,7 @@ import socket from "../utils";
 import { styles } from "../utils/styles";
 import { View, Pressable, FlatList, Text } from "react-native";
 import { Button, TextInput } from "react-native-paper";
-import Message from "../shared/Message";
+import Message from "../shared/components/Message";
 import { getAuth } from "firebase/auth";
 
 

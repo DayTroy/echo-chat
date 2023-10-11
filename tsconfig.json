@@ -6,5 +6,6 @@
     "strict": true,
     "esModuleInterop": true
   },
-  "extends": "expo/tsconfig.base"
+  "extends": "expo/tsconfig.base",
+  "exclude": ["node_modules", "babel.config.js", "metro.config.js", "jest.config.js"]
 }

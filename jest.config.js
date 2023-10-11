@@ -1,9 +1,12 @@
 module.exports = {
-    preset: 'react-native',
-    setupFiles: ['./node_modules/react-native-gesture-handler/jestSetup.js'],
-    transformIgnorePatterns: [
-      'node_modules/(?!(jest-)?react-native|@react-native-community|@react-navigation)',
-    ],
-    testMatch: ['**/__tests__/**/*.test.[jt]s?(x)', '**/?(*.)+(spec|test).[jt]s?(x)'],
-  };
-  
+  preset: 'react-native',
+  setupFiles: ['./node_modules/react-native-gesture-handler/jestSetup.js'],
+  transform: {
+    '^.+\\.tsx?$': 'ts-jest',
+  },
+  testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$',
+  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
+  transformIgnorePatterns: [
+    "node_modules/(?!(react-native|@react-native|@react-navigation))"
+  ]
+};
