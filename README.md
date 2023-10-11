@@ -32,7 +32,7 @@ Run project locally
   npx expo start
 ```
 
-Run locally backend server
+Git clone this express backend server from (https://github.com/DayTroy/echo-chat-backend) and run it locally
 ```bash
   node server.js
 ```
