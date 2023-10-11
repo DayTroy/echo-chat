@@ -9,7 +9,7 @@ Users should be able to create chats, search for chats, connect to exist and del
 
 **Client:** Expo, React Native, Redux, TypeScript, React Native Elements, React Native Paper.
 
-**Server:** Node, Express, Google Firebase (Authentication).
+**Server:** Node JS, Express, Google Firebase (Authentication).
 
 ## Installation
 Clone the project
