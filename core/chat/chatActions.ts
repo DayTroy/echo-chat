@@ -40,7 +40,7 @@ export const createChat = (chatData: any) => {
 export const editChat = (chatData: any) => {
   return async (dispatch: Dispatch) => {
     try {
-      await axios.put(`http://localhost:4000/update-chat/${chatData.chatId}`, {
+      await axios.put(`http://localhost:4000/update-chat/${chatData.chatId}/`, {
         updatedChatTitle: chatData.updatedChatTitle,
       });
       dispatch({
