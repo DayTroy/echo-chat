@@ -29,7 +29,7 @@ Install dependencies
 
 Run project locally 
 ```bash
-  npx expo start
+  npx expo start --web
 ```
 
 Git clone this express backend server from (https://github.com/DayTroy/echo-chat-backend) and run it locally
