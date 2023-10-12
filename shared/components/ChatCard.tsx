@@ -19,7 +19,7 @@ const ChatCard: React.FC<CardProps> = ({
 }) => {
   const navigation = useNavigation();
   const handleJoinChat = () => {
-    socket.emit('joinChat', chat.id); // Assuming chat.id is the identifier for the chat
+    socket.emit('joinChat', chat.id);
     navigation.navigate('Chat', { chatId: chat.id });
   };
   return (

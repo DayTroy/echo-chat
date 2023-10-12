@@ -5,7 +5,6 @@ import MainNavigation from "./navigation/MainNavigation";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { Provider } from "react-redux";
 import store from "./core/store";
-import { User } from "firebase/auth";
 const App = () => {
   const [fontsLoaded] = useFonts({
     Nunito_400Regular,
@@ -30,7 +29,6 @@ const App = () => {
   }
 
   if (!fontsLoaded) {
-    // Return a loading indicator or splash screen while fonts are loading
     return null;
   }
 
