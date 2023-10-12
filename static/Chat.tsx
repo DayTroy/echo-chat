@@ -5,11 +5,11 @@ import React, {
   useState,
 } from "react";
 import socket from "../utils";
-import { styles } from "../utils/styles";
 import { View, Pressable, FlatList, Text } from "react-native";
 import { Button, TextInput } from "react-native-paper";
 import Message from "../shared/components/Message";
 import { getAuth } from "firebase/auth";
+import { styles } from "../utils/styles";
 
 
 const Chat = ({ route }: { route: any }) => {
@@ -53,12 +53,9 @@ const Chat = ({ route }: { route: any }) => {
   }, [socket]);
 
   return (
-    <View style={styles.messagingscreen}>
+    <View style={{flex: 1}}>
       <View
-        style={[
-          styles.messagingscreen,
-          { paddingVertical: 15, paddingHorizontal: 10 },
-        ]}
+        style={{ flex: 1, paddingVertical: 15, paddingHorizontal: 10 }}
       >
         {messages[0] ? (
           <FlatList
@@ -71,7 +68,15 @@ const Chat = ({ route }: { route: any }) => {
         )}
       </View>
 
-      <View style={styles.messaginginputContainer}>
+      <View style={{
+		width: "100%",
+		minHeight: 100,
+		backgroundColor: "white",
+		paddingVertical: 30,
+		paddingHorizontal: 15,
+		justifyContent: "center",
+		flexDirection: "row",
+	}}>
         <TextInput
           value={message}
           contentStyle={{ fontFamily: "Nunito_400Regular" }}
