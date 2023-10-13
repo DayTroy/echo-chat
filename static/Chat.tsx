@@ -60,7 +60,7 @@ const Chat = ({ route }: { route: any }) => {
         {messages[0] ? (
           <FlatList
             data={messages}
-            renderItem={({ item }) => <Message item={item} user={user} />}
+            renderItem={({ item }) => <Message item={item} user={item.currentUser} />}
             keyExtractor={(item) => item.id}
           />
         ) : (
