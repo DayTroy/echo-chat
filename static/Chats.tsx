@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import ChatCard from "../shared/components/ChatCard";
 import { FAB, Portal } from "react-native-paper";
 import SearchBar from "../shared/components/SearchBar";
-import { StyleSheet, Text, View, ScrollView } from "react-native";
+import { StyleSheet, Text, View, ScrollView, RefreshControl } from "react-native";
 import { getAuth } from "firebase/auth";
 import { Chat } from "../shared/interfaces/Chat";
 import { useDispatch, useSelector } from "react-redux";
@@ -31,9 +31,17 @@ const Chats = () => {
   const [editDialogVisible, setEditDialogVisible] = useState(false);
   const [deleteDialogVisible, setDeleteDialogVisible] = useState(false);
 
+  const [refreshing, setRefreshing] = useState(false);
+
   useEffect(() => {
-    dispatch(setChats() as any);
-  }, [dispatch]);
+    fetchChats();
+  }, []);
+
+  const fetchChats = async () => {
+    setRefreshing(true);
+    await dispatch(setChats() as any);
+    setRefreshing(false);
+  };
 
   const handleCreateChat = async () => {
     socket.emit("newChat", chatTitle);
@@ -104,6 +112,9 @@ const Chats = () => {
       <ScrollView
         contentContainerStyle={styles.fabContainer}
         showsVerticalScrollIndicator={false}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={fetchChats} />
+        }
       >
         <Text style={styles.title}>Chats</Text>
         <SearchBar setSearchQuery={setSearchQuery} />
