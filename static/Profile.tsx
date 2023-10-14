@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Avatar, Button } from "@rneui/themed";
 import { getAuth } from "firebase/auth";
-import * as ImagePicker from "expo-image-picker"; // Import ImagePicker from Expo
+import * as ImagePicker from "expo-image-picker";
 import {
   StyleSheet,
   Text,
@@ -75,7 +75,6 @@ const Profile: React.FC<ProfileProps> = ({ navigation }) => {
       if (selectedImage && selectedImage.uri) {
         setAvatar(selectedImage.uri);
       } else {
-        // Handle the case where 'uri' is not available
         console.error("Selected image has no URI");
       }
     }

@@ -11,7 +11,7 @@ import {
 } from "react-native";
 import { Button } from "@rneui/themed";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { RootStackParamList } from "../types/rootStackParams"; // Import your types
+import { RootStackParamList } from "../types/rootStackParams";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../config/firebase";
 

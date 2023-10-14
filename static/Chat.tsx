@@ -1,21 +1,14 @@
-import React, {
-  useCallback,
-  useEffect,
-  useLayoutEffect,
-  useState,
-} from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import socket from "../utils";
-import { View, Pressable, FlatList, Text } from "react-native";
+import { View, FlatList } from "react-native";
 import { Button, TextInput } from "react-native-paper";
 import Message from "../shared/components/Message";
 import { getAuth } from "firebase/auth";
-import { styles } from "../utils/styles";
-
 
 const Chat = ({ route }: { route: any }) => {
   const chatId = route.params?.chatId || "";
-  const [message, setMessage] = useState("");
-  const [messages, setMessages] = useState([] as any[]);
+  const [message, setMessage] = useState<string>("");
+  const [messages, setMessages] = useState<string[]>([]);
 
   const auth = getAuth();
   const user = auth.currentUser;
@@ -35,32 +28,32 @@ const Chat = ({ route }: { route: any }) => {
       currentChatMessage: message,
       groupIdentifier: chatId,
       currentUser: {
-        id: user?.uid, 
+        id: user?.uid,
         email: user?.email,
       },
       timeData: { hr, mins },
     });
-    setMessage("")
+    setMessage("");
   };
 
   useLayoutEffect(() => {
     socket.emit("findGroup", chatId);
-    socket.on("foundGroup", (roomChats) => setMessages(roomChats));
+    socket.on("foundGroup", (roomChats: string[]) => setMessages(roomChats));
   }, []);
 
   useEffect(() => {
-    socket.on("foundGroup", (roomChats) => setMessages(roomChats));
+    socket.on("foundGroup", (roomChats: string[]) => setMessages(roomChats));
   }, [socket]);
 
   return (
-    <View style={{flex: 1}}>
-      <View
-        style={{ flex: 1, paddingVertical: 15, paddingHorizontal: 10 }}
-      >
+    <View style={{ flex: 1 }}>
+      <View style={{ flex: 1, paddingVertical: 15, paddingHorizontal: 10 }}>
         {messages[0] ? (
           <FlatList
             data={messages}
-            renderItem={({ item }) => <Message item={item} user={item.currentUser} />}
+            renderItem={({ item }) => (
+              <Message item={item} user={item.currentUser} />
+            )}
             keyExtractor={(item) => item.id}
           />
         ) : (
@@ -68,15 +61,17 @@ const Chat = ({ route }: { route: any }) => {
         )}
       </View>
 
-      <View style={{
-		width: "100%",
-		minHeight: 100,
-		backgroundColor: "white",
-		paddingVertical: 30,
-		paddingHorizontal: 15,
-		justifyContent: "center",
-		flexDirection: "row",
-	}}>
+      <View
+        style={{
+          width: "100%",
+          minHeight: 100,
+          backgroundColor: "white",
+          paddingVertical: 30,
+          paddingHorizontal: 15,
+          justifyContent: "center",
+          flexDirection: "row",
+        }}
+      >
         <TextInput
           value={message}
           contentStyle={{ fontFamily: "Nunito_400Regular" }}
@@ -98,13 +93,13 @@ const Chat = ({ route }: { route: any }) => {
           buttonColor="#44bc82"
           labelStyle={{ fontFamily: "Nunito_400Regular" }}
           style={{
-            justifyContent: "center", 
+            justifyContent: "center",
             alignItems: "center",
             marginLeft: 20,
             backgroundColor: "#44bc82",
           }}
           contentStyle={{ flexDirection: "row-reverse" }}
-          >
+        >
           {"Send"}
         </Button>
       </View>

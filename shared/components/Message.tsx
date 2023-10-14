@@ -2,6 +2,13 @@ import { View, Text } from "react-native";
 import React from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { StyleSheet } from "react-native";
+import { Message } from "../interfaces/Message";
+
+interface MessageProps {
+	user: string;
+	item: Message;
+}
+
 export default function Message({ item, user }) {
 	const status = item.user !== user;
 	return (
